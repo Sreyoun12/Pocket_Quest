@@ -4,11 +4,11 @@ class SavingGoal extends Account {
   double targetAmount;
 
   SavingGoal({
-    required super.id,
+    super.id,
     required super.name,
-    required super.amount,
-    required super.createdAt,
-    required super.updatedAt,
+    required super.balance,
+    super.createdAt,
+    super.updatedAt,
     required this.targetAmount,
   });
 }

@@ -1,15 +1,16 @@
 abstract class Account {
-  final int id;
+  final int? id;
   String name;
-  double amount;
+  double balance;
   final DateTime createdAt;
   DateTime updatedAt;
 
   Account({
     required this.id,
     required this.name,
-    required this.amount,
-    required this.createdAt,
-    required this.updatedAt,
-  });
+    required this.balance,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) : createdAt = DateTime.now(),
+       updatedAt = DateTime.now();
 }

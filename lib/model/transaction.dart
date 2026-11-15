@@ -4,23 +4,24 @@ import 'account.dart';
 enum TransactionType { income, tranfer, expense }
 
 class Transaction {
-  final int id;
+  final int? id;
   double amount;
   final TransactionType transactionType;
   Category category;
-  Account? source;
+  Account source;
   Account? destination;
   final DateTime createdAt;
   DateTime updatedAt;
 
   Transaction({
-    required this.id,
+    this.id,
     required this.amount,
     required this.transactionType,
     required this.category,
-    this.source,
+    required this.source,
     this.destination,
-    required this.createdAt,
-    required this.updatedAt,
-  });
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) : createdAt = DateTime.now(),
+       updatedAt = DateTime.now();
 }

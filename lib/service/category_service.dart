@@ -4,10 +4,7 @@ class CategoryService {
   final List<Category> categories = [];
 
   //add category
-  void addCategory({
-    required int categoryId,
-    required String categoryName,
-  }) {
+  void addCategory({required int? categoryId, required String categoryName}) {
     Category? category = _findCategoryOrNull(categoryId);
     if (category != null) {
       throw Exception("Category $categoryId already exists");
@@ -15,9 +12,7 @@ class CategoryService {
     if (categoryName.trim().isEmpty) {
       throw Exception("Category name cannot be empty");
     }
-    categories.add(
-      Category(id: categoryId, name: categoryName),
-    );
+    categories.add(Category(id: categoryId, name: categoryName));
   }
 
   //remove category
@@ -50,7 +45,7 @@ class CategoryService {
   }
 
   //helper method - Find category
-  Category? _findCategoryOrNull(int categoryId) {
+  Category? _findCategoryOrNull(int? categoryId) {
     for (Category c in categories) {
       if (c.id == categoryId) {
         return c;

@@ -6,9 +6,9 @@ class BudgetChallengeService {
   final List<Transaction> transactions = [];
 
   //add challenge
-  void addChallenge ({ required BudgetChallenge challenge}){
-    if (_findCategoryOrNull(challenge.id) != null){
-      throw Exception( "Challenge already exists");
+  void addChallenge({required BudgetChallenge challenge}) {
+    if (_findCategoryOrNull(challenge.id) != null) {
+      throw Exception("Challenge already exists");
     }
     if (challenge.name.trim().isEmpty) {
       throw Exception('Challenge name cannot be empty');
@@ -23,27 +23,27 @@ class BudgetChallengeService {
   }
 
   //remove challenge
-  void removeChallenge ({required int challengeId}){
+  void removeChallenge({required int challengeId}) {
     BudgetChallenge? challenge = _findCategoryOrNull(challengeId);
-    if (challenge == null){
+    if (challenge == null) {
       throw Exception("Challenge not found");
     }
     challenges.remove(challenge);
   }
 
   //update challenge
-  void updateChallenge({required BudgetChallenge newChallenge}){
+  void updateChallenge({required BudgetChallenge newChallenge}) {
     BudgetChallenge? challenge = _findCategoryOrNull(newChallenge.id);
-    if (challenge == null){
-      throw Exception ("Challenge not found");
+    if (challenge == null) {
+      throw Exception("Challenge not found");
     }
-    if (newChallenge.name.trim().isEmpty){
+    if (newChallenge.name.trim().isEmpty) {
       throw Exception("Challenge name cannot be empty");
     }
-    if (newChallenge.spendLimit <= 0){
+    if (newChallenge.spendLimit <= 0) {
       throw Exception("Spend limit must be greate than zero");
     }
-    if (newChallenge.endDate.isBefore(newChallenge.startDate)){
+    if (newChallenge.endDate.isBefore(newChallenge.startDate)) {
       throw Exception("Invalid challenge dates");
     }
     challenge.name = newChallenge.name;
@@ -51,73 +51,73 @@ class BudgetChallengeService {
     challenge.categoryId = newChallenge.categoryId;
     challenge.startDate = newChallenge.startDate;
     challenge.endDate = newChallenge.endDate;
+    //should it be calculate or set by user?by: sreyoun
     challenge.status = newChallenge.status;
-    challenge.transactionId = newChallenge.transactionId;
   }
 
   //view all challenges
-  List<BudgetChallenge> vieewAllChallenges(){
+  List<BudgetChallenge> viewAllChallenges() {
     return challenges;
   }
 
   //get challenge period
-  Duration getChallengePeriod({required int challengeId}){
+  Duration getChallengePeriod({required int? challengeId}) {
     BudgetChallenge? challenge = _findCategoryOrNull(challengeId);
-    if (challenge == null){
+    if (challenge == null) {
       throw Exception("Challenge not found");
     }
     return challenge.endDate.difference(challenge.startDate);
   }
 
   //get challenge amount
-  double getChallengeAmount ({required int challengeId}){
+  double getChallengeAmount({required int challengeId}) {
     BudgetChallenge? challenge = _findCategoryOrNull(challengeId);
-    if (challenge == null){
+    if (challenge == null) {
       throw Exception("Chalenge not found");
     }
     return challenge.spendLimit;
   }
 
   //calculate spending
-  double getSpendAmount({required int challengeId}){
+  double getSpendAmount({required int challengeId}) {
     BudgetChallenge? challenge = _findCategoryOrNull(challengeId);
-    if (challenge == null){
+    if (challenge == null) {
       throw Exception("Challenge not found");
     }
     double total = 0;
-    for (Transaction t in transactions){
+    for (Transaction t in transactions) {
       if (t.transactionType == TransactionType.expense &&
           t.category.id == challenge.categoryId.id &&
           !t.createdAt.isBefore(challenge.startDate) &&
           !t.createdAt.isAfter(challenge.endDate)) {
-            total += t.amount;
-          }
+        total += t.amount;
+      }
     }
     return total;
   }
 
   //calculate remaining budget
-  double getRemainingBudget ({required int challengeId}){
+  double getRemainingBudget({required int challengeId}) {
     BudgetChallenge? challenge = _findCategoryOrNull(challengeId);
-    if (challenge == null){
-      throw Exception("Challenge not found");
-      }
-
-    double spending = getSpendAmount(challengeId: challengeId);
-    return challenge.spendLimit -spending;
-  }
-
-  //get challenge status
-  ChallengeStatus getStatus({required int challengeId}){
-    BudgetChallenge? challenge = _findCategoryOrNull(challengeId);
-    if (challenge == null){
+    if (challenge == null) {
       throw Exception("Challenge not found");
     }
 
     double spending = getSpendAmount(challengeId: challengeId);
-    if (spending > challenge.spendLimit){
+    return challenge.spendLimit - spending;
+  }
+
+  //get challenge status
+  ChallengeStatus getStatus({required int challengeId}) {
+    BudgetChallenge? challenge = _findCategoryOrNull(challengeId);
+    if (challenge == null) {
+      throw Exception("Challenge not found");
+    }
+
+    double spending = getSpendAmount(challengeId: challengeId);
+    if (spending > challenge.spendLimit) {
       challenge.status = ChallengeStatus.overspending;
-    } else if (DateTime.now().isAfter(challenge.endDate)){
+    } else if (DateTime.now().isAfter(challenge.endDate)) {
       challenge.status = ChallengeStatus.completed;
     } else {
       challenge.status = ChallengeStatus.underspending;
@@ -126,9 +126,10 @@ class BudgetChallengeService {
   }
 
   //helper method - Find challenge
-  BudgetChallenge? _findCategoryOrNull(int challengeId){
-    for (BudgetChallenge c in challenges){
-      if (c.id == challenges){
+  BudgetChallenge? _findCategoryOrNull(int? challengeId) {
+    for (BudgetChallenge c in challenges) {
+      // if (c.id == challenges){ by: sreyoun
+      if (c.id == challengeId) {
         return c;
       }
     }
