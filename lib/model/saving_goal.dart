@@ -6,7 +6,7 @@ class SavingGoal extends Account {
   SavingGoal({
     super.id,
     required super.name,
-    required super.balance,
+    super.balance,
     super.createdAt,
     super.updatedAt,
     required this.targetAmount,

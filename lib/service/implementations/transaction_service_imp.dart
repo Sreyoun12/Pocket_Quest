@@ -14,7 +14,8 @@ class TransactionServiceImp implements TransactionServiceInterface {
     // 4. Destination required for transfer
     // 5. source must different from destination
     // 6. check if balance(of source acc) is enough for transaction
-    // 7. add transaction to list
+    // 7. update balance
+    // 8. add transaction to list
     //--------------------------------------------------------------------------
 
     //1
@@ -49,12 +50,18 @@ class TransactionServiceImp implements TransactionServiceInterface {
     }
 
     //7
+    updateBalance(transaction);
+
+    //8
     transactions.add(transaction);
   }
 
   @override
   void removeTransaction() {
     // TODO: implement removeTransaction
+    //--------------------------------------------------------------------------
+    // 1. Check if Transaction exist
+    // 2. Check if
   }
   @override
   void updateTransaction() {
@@ -75,6 +82,24 @@ class TransactionServiceImp implements TransactionServiceInterface {
       }
     }
     return null;
-    throw UnimplementedError();
+  }
+
+  @override
+  void updateBalance(Transaction t) {
+    // TODO: implement updateBalance
+    switch (t.transactionType) {
+      case TransactionType.income:
+        t.source.balance += t.amount;
+        break;
+
+      case TransactionType.expense:
+        t.source.balance -= t.amount;
+        break;
+
+      case TransactionType.tranfer:
+        t.source.balance -= t.amount;
+        t.destination!.balance += t.amount;
+        break;
+    }
   }
 }

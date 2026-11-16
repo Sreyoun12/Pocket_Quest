@@ -9,4 +9,5 @@ abstract interface class TransactionServiceInterface {
 
   // Helper
   Transaction? findTransactionOrNull(int? transactionId);
+  void updateBalance(Transaction transaction);
 }

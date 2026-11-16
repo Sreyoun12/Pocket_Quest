@@ -8,7 +8,7 @@ abstract class Account {
   Account({
     required this.id,
     required this.name,
-    required this.balance,
+    this.balance = 0,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) : createdAt = DateTime.now(),

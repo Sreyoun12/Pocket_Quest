@@ -1,5 +1,4 @@
 import 'category.dart';
-import 'transaction.dart';
 
 enum ChallengeStatus { completed, overspending, underspending }
 
