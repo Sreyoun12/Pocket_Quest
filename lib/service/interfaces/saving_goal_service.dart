@@ -8,8 +8,12 @@ abstract interface class SavingGoalServiceInterface {
   List<SavingGoal> viewAllSavingGoal();
 
   // get current amount
-  void getCurrentbalance({required SavingGoal goal});
+  double getCurrentbalance({required int goalId});
+  //get goal status
+  GoalStatus getGoalStatus({required int goalId});
+  //get goal peroid
+  Duration getGoalPeriod({required int goalId});
 
   //helper
-  SavingGoal? getSavingGoalOrNull();
+  SavingGoal? getSavingGoalOrNull({required int goalId});
 }
