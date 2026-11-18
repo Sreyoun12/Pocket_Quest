@@ -168,6 +168,63 @@ class SavingGoalServiceImp implements SavingGoalServiceInterface {
   }
 
   @override
+  void deposit({required int goalId, required double amount}) {
+    //--------------------------------------------------------------------------
+    // 1. check if goal exist
+    // 2. check if amount is valid
+    // 3. amount must not exceed what goal need
+    // 4. Goal must not complete yet
+    // 5. update goal pocket
+    //--------------------------------------------------------------------------
+
+    //1
+    SavingGoal? goalOrNull = getSavingGoalOrNull(goalId: goalId);
+    if (goalOrNull == null) {
+      throw Exception('This goal $goalId does not exist!');
+    }
+    //2
+    if (amount <= 0) {
+      throw Exception('The deposit amount is not valid!');
+    }
+    //3
+    if (getGoalStatus(goalId: goalId) == GoalStatus.complete) {
+      throw Exception('Goal has already complete, cannot add more balance');
+    }
+    //4
+    if (amount > goalOrNull.targetAmount - goalOrNull.balance) {
+      throw Exception('Input amount must not be more than what goal need!');
+    }
+    //5
+    goalOrNull.balance += amount;
+  }
+
+  @override
+  void withdraw({required int goalId, required double amount}) {
+    //--------------------------------------------------------------------------
+    // 1. Check if goal exist
+    // 2. Input amount must be less than current balance
+    // 3. update balance
+    //--------------------------------------------------------------------------
+
+    //1
+    SavingGoal? goalOrnull = getSavingGoalOrNull(goalId: goalId);
+    if (goalOrnull == null) {
+      throw Exception('Goal does not exist!');
+    }
+    //2
+    if (amount <= 0) {
+      throw Exception('Amount is not valid!');
+    }
+    //3
+    if (goalOrnull.balance < amount) {
+      throw Exception('Not enough balance to withraw!');
+    }
+    //4
+    goalOrnull.balance -= amount;
+  }
+
+  // Helper
+  @override
   SavingGoal? getSavingGoalOrNull({required int? goalId}) {
     for (SavingGoal s in goals) {
       if (s.id == goalId) {

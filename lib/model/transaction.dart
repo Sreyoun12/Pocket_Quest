@@ -22,6 +22,6 @@ class Transaction {
     this.destination,
     DateTime? createdAt,
     DateTime? updatedAt,
-  }) : createdAt = DateTime.now(),
-       updatedAt = DateTime.now();
+  }) : createdAt = createdAt ?? DateTime.now(),
+       updatedAt = updatedAt ?? DateTime.now();
 }

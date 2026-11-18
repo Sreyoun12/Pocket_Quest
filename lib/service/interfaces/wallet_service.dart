@@ -6,8 +6,6 @@ abstract interface class WalletServiceInterface {
   //---------------------------------------------
   Wallet getWallet();
   void updateWalletName({required String name});
-  void deposit({required double amount});
-  void withdraw({required double amount});
 
   double getCurrentBalance();
 }

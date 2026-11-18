@@ -14,6 +14,10 @@ abstract interface class SavingGoalServiceInterface {
   //get goal peroid
   Duration getGoalPeriod({required int goalId});
 
+  //update balance in goal pocket
+  void deposit({required int goalId, required double amount});
+  void withdraw({required int goalId, required double amount});
+
   //helper
   SavingGoal? getSavingGoalOrNull({required int goalId});
 }

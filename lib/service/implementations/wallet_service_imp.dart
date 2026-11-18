@@ -26,32 +26,4 @@ class WalletServiceImp implements WalletServiceInterface {
     // get current balance
     return _mainWallet.balance;
   }
-
-  @override
-  void deposit({required double amount}) {
-    //---------------------------------------
-    // 1. check if amount is valid
-    // 2. add amount to wallet
-    //---------------------------------------
-    if (amount <= 0) {
-      throw Exception('Amount $amount is invalid!');
-    }
-    _mainWallet.balance += amount;
-  }
-
-  @override
-  void withdraw({required double amount}) {
-    //------------------------------------------
-    // 1. check if amount is valid
-    // 2. check if balance is enough for withraw
-    // 2. Subtract amount from wallet
-    //------------------------------------------
-    if (amount <= 0) {
-      throw Exception('Amount $amount is invalid!');
-    }
-    if (_mainWallet.balance < amount) {
-      throw Exception('Balance is not enought to withraw!');
-    }
-    _mainWallet.balance -= amount;
-  }
 }
