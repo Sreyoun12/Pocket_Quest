@@ -11,7 +11,7 @@ abstract interface class SavingGoalServiceInterface {
   double getCurrentbalance({required int goalId});
   //get goal status
   GoalStatus getGoalStatus({required int goalId});
-  //get goal peroid
+  //get goal period
   Duration getGoalPeriod({required int goalId});
 
   //update balance in goal pocket

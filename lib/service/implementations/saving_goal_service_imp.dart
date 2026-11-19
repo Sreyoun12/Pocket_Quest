@@ -46,7 +46,7 @@ class SavingGoalServiceImp implements SavingGoalServiceInterface {
   void updateSavingGoal({required SavingGoal goal}) {
     //--------------------------------------------------------------------------
     // 1. The goal with that id must exist.
-    // 2. Apply the same checks as add name
+    // 2. name must not be empty (use trim()).
     // 3. check if target is valid
     // 4. don’t allow editing a goal that is already completed.
     // 5. check if new date is valid
