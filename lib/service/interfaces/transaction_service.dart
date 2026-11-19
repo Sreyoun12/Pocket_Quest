@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:pocket_quest/model/transaction.dart';
 
 abstract interface class TransactionServiceInterface {

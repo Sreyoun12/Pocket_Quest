@@ -121,7 +121,7 @@ class TransactionServiceImp implements TransactionServiceInterface {
     // 2. category must not be empty.
     // 3. date must not be in the future.
     // 4. amount, transactionType and goalId must match the stored values.
-    //    Throw if they differ, rather than silently ignoring them.
+    //    Throw if they differ
     // 5. Update
     //--------------------------------------------------------------------------
 
@@ -160,6 +160,7 @@ class TransactionServiceImp implements TransactionServiceInterface {
     //5
     transactionOrNull.updatedAt = DateTime.now();
     transactionOrNull.category = transaction.category;
+    transactionOrNull.name = transaction.name;
   }
 
   @override

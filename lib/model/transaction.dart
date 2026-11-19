@@ -5,6 +5,7 @@ enum TransactionType { income, tranfer, expense }
 
 class Transaction {
   final int? id;
+  String name;
   double amount;
   final TransactionType transactionType;
   Category category;
@@ -15,6 +16,7 @@ class Transaction {
 
   Transaction({
     this.id,
+    required this.name,
     required this.amount,
     required this.transactionType,
     required this.category,
